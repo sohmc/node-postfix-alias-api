@@ -10,8 +10,9 @@
   "author": "Michael Soh",
   "license": "AGPL-3.0-only",
   "dependencies": {
+    "better-sqlite3": "^7.4.5",
     "body-parser": "^1.19.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "restify": "^8.6.0",
     "winston": "^3.3.3"
   }
