@@ -1,3 +1,4 @@
+require("dotenv").config();
 const sqlite3 = require("better-sqlite3");
 
 // Winston Logger Declarations
@@ -15,6 +16,7 @@ const logger = winston.createLogger({
 var db = undefined;
 try {
   db = new sqlite3(process.env.DBFILE, {fileMustExist: true});
+  logger.info("Database connection established: " + process.env.DBFILE);
 } catch (connectionError) {
   logger.error(connectionError);
   process.exit(1);
@@ -30,9 +32,10 @@ server.get('/domain', routes.domain.getDomains);
 server.pre(function (req, res, next) {
   req.db = db;
   req.logger = logger;
-  next();
+  return next();
 });
 
+server.use(restify.plugins.queryParser({mapParams: true}));
 server.listen(8080, function() {
   console.log('%s listening at %s', server.name, server.url);
 });
